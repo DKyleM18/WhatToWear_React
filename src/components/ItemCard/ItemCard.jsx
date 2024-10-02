@@ -6,7 +6,7 @@ export default function ItemCard({ item, onCardClick }) {
   };
 
   return (
-    <li className="card" key={item._id}>
+    <li className="card">
       <h2 className="card__title">{item.name}</h2>
       <img
         onClick={handleCardClick}

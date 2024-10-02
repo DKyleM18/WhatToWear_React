@@ -21,7 +21,11 @@ export default function WeatherCard({ weatherData }) {
       <p className="weather-card__temp">
         {Math.round(weatherData.temp.F)} &deg; F
       </p>
-      <img src={weatherOption?.url} alt="" className="weather-card__image" />
+      <img
+        src={weatherOption?.url}
+        alt={`The weather is ${weatherOption?.condition}`}
+        className="weather-card__image"
+      />
     </section>
   );
 }

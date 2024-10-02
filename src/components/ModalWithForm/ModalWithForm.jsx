@@ -6,11 +6,10 @@ export default function ModalWithForm({
   buttonText,
   activeModal,
   onClose,
+  isOpen,
 }) {
   return (
-    <div
-      className={`modal ${activeModal === "add-garment" && "modal__opened"}`}
-    >
+    <div className={`modal ${isOpen && "modal_opened"}`}>
       <div className="modal__content">
         <h2 className="modal__title">{title}</h2>
         <button

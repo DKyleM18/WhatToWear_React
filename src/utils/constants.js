@@ -9,7 +9,7 @@ export const weatherOptions = [
   {
     day: true,
     condition: "clear",
-    url: new URL("../", import.meta.url).href,
+    url: new URL("../assets/day/clear.png", import.meta.url).href,
   },
   {
     day: false,
@@ -71,8 +71,10 @@ export const weatherOptions = [
 export const defaultWeatherOptions = {
   day: {
     url: new URL("../assets/day/default.png", import.meta.url).href,
+    condition: "unknown",
   },
   night: {
     url: new URL("../assets/night/default.png", import.meta.url).href,
+    condition: "unknown",
   },
 };
