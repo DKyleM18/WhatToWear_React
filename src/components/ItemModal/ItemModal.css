@@ -1,0 +1,30 @@
+.modal__content_type_image {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__image {
+  width: 100%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.modal__footer {
+  padding: 20px 0 32px 32px;
+}
+
+.modal__caption {
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 12px;
+}
+
+.modal__weather {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+}
