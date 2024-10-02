@@ -9,7 +9,8 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "pass": "ssh-add ~/.ssh/id_ed25519"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
