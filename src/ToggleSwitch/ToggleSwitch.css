@@ -1,0 +1,61 @@
+.switch {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+}
+
+.switch__input {
+  appearance: none;
+  border: 2px solid black;
+  border-radius: 20px;
+  width: 56px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.switch__slider {
+  position: absolute;
+  border-radius: 20px;
+  height: 28px;
+  width: 28px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+
+.switch__slider-C {
+  left: 28px;
+  cursor: pointer;
+}
+
+.switch__slider-C:hover {
+  left: 26px;
+}
+
+.switch__slider-F {
+  cursor: pointer;
+}
+
+.switch__slider-F:hover {
+  left: 2px;
+}
+
+.switch__temp-C {
+  position: absolute;
+  top: -13px;
+  left: 37px;
+  color: white;
+}
+
+.switch__temp-F {
+  position: absolute;
+  top: -13px;
+  left: 10px;
+  color: white;
+}
+
+.switch__active {
+  font-size: 16px;
+  color: white;
+}
