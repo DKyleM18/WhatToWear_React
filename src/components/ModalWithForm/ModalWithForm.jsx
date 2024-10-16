@@ -7,6 +7,7 @@ export default function ModalWithForm({
   activeModal,
   onClose,
   isOpen,
+  onSubmit,
 }) {
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
@@ -17,9 +18,9 @@ export default function ModalWithForm({
           type="button"
           className="modal__close"
         ></button>
-        <form action="" className="modal__form">
+        <form action="" onSubmit={onSubmit} className="modal__form">
           {children}
-          <button type="submit" className="modal__submit" disabled>
+          <button type="submit" className="modal__submit">
             {buttonText}
           </button>
         </form>
