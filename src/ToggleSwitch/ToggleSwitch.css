@@ -45,17 +45,18 @@
   position: absolute;
   top: -13px;
   left: 37px;
-  color: white;
+  visibility: hidden;
 }
 
 .switch__temp-F {
   position: absolute;
   top: -13px;
   left: 10px;
-  color: white;
+  visibility: hidden;
 }
 
 .switch__active {
   font-size: 16px;
   color: white;
+  visibility: visible;
 }

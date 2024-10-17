@@ -1,0 +1,7 @@
+.clothes-section {
+  margin: 0;
+}
+
+.clothes-section__header {
+  display: flex;
+}
