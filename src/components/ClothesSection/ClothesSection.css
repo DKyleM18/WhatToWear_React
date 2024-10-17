@@ -4,4 +4,29 @@
 
 .clothes-section__header {
   display: flex;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.clothes-section__title {
+  margin: 0;
+}
+
+.clothes-section__button {
+  margin: 0 0 0 20px;
+  border: none;
+  font-weight: 700;
+  opacity: 0.6;
+  padding: 0;
+  background-color: transparent;
+}
+
+.clothes-section__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 21px;
 }
