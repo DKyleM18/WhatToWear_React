@@ -8,9 +8,9 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
     setName(e.target.value);
   };
 
-  const [link, setUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const handleUrlChange = (e) => {
-    setUrl(e.target.value);
+    setImageUrl(e.target.value);
   };
 
   const [weather, setWeather] = useState("");
@@ -20,9 +20,9 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, link, weather });
+    onAddItem({ name, imageUrl, weather });
     setName("");
-    setUrl("");
+    setImageUrl("");
   };
 
   return (
@@ -54,7 +54,7 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
           className="modal__input"
           placeholder="Image URL"
           onChange={handleUrlChange}
-          value={link}
+          value={imageUrl}
           required
         />
       </label>

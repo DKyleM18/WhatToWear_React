@@ -42,11 +42,36 @@ function App() {
   };
 
   const handleAddItemSubmit = (values) => {
+    const baseUrl = "http://localhost:3001";
     console.log(values);
+    fetch(`${baseUrl}/items`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((res) => {
+        return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+      })
+      .then((data) => {
+        setClothingItems([...clothingItems, data]);
+      })
+      .catch(console.error);
+    handleModalClose();
   };
 
-  const onAddItem = (values) => {
-    console.log(values);
+  const handleDeleteItem = (id) => {
+    fetch(`${baseUrl}/items/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+      })
+      .then((data) => {
+        setClothingItems(clothingItems.filter((item) => item._id !== id));
+      })
+      .catch(console.error);
   };
 
   useEffect(() => {
@@ -111,6 +136,7 @@ function App() {
                 <Profile
                   onCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />
@@ -119,7 +145,7 @@ function App() {
         </div>
         <AddItemModal
           onClose={handleModalClose}
-          onAddItem={onAddItem}
+          onAddItem={handleAddItemSubmit}
           activeModal={activeModal}
         />
         <ItemModal
