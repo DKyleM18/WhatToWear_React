@@ -20,7 +20,7 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, imageUrl, weather });
+    onAddItem({ name, weather, imageUrl });
     setName("");
     setImageUrl("");
   };

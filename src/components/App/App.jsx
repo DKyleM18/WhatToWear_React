@@ -22,6 +22,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+  const baseUrl = "http://localhost:3001";
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -42,15 +43,19 @@ function App() {
   };
 
   const handleAddItemSubmit = (values) => {
-    const baseUrl = "http://localhost:3001";
-    console.log(values);
-    fetch(`${baseUrl}/items`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    })
+    getItems()
+      .then((data) => {
+        const lastId = Math.max(...data.map((item) => item._id));
+        const newId = lastId + 1;
+        const newItem = { _id: newId, ...values };
+        return fetch(`${baseUrl}/items`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newItem),
+        });
+      })
       .then((res) => {
         return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
       })
@@ -61,17 +66,20 @@ function App() {
     handleModalClose();
   };
 
-  const handleDeleteItem = (id) => {
-    fetch(`${baseUrl}/items/${id}`, {
+  const handleDeleteItem = () => {
+    fetch(`${baseUrl}/items/${selectedCard._id}`, {
       method: "DELETE",
     })
       .then((res) => {
         return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
       })
-      .then((data) => {
-        setClothingItems(clothingItems.filter((item) => item._id !== id));
+      .then(() => {
+        setClothingItems(
+          clothingItems.filter((item) => item._id !== selectedCard._id)
+        );
       })
       .catch(console.error);
+    handleModalClose();
   };
 
   useEffect(() => {
@@ -152,6 +160,7 @@ function App() {
           card={selectedCard}
           activeModal={activeModal}
           onClose={handleModalClose}
+          onDelete={handleDeleteItem}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>
