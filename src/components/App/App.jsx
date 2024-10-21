@@ -53,7 +53,6 @@ function App() {
     const newId = lastId + 1;
     const newItem = { _id: newId, ...values };
     return addItem(newItem)
-      .then(checkResponse)
       .then((data) => {
         setClothingItems([...clothingItems, data]);
       })

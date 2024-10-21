@@ -1,3 +1,5 @@
+//  json-server --watch db.json --id _id --port 3001
+
 const baseUrl = "http://localhost:3001";
 
 function checkResponse(res) {
@@ -21,14 +23,14 @@ function addItem(item) {
   });
 }
 
-function getItems() {
-  return request(`${baseUrl}/items`);
-}
-
 function deleteItem(itemId) {
   return request(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
-  }).then(checkResponse);
+  });
+}
+
+function getItems() {
+  return request(`${baseUrl}/items`);
 }
 
 export { getItems, baseUrl, request, addItem, deleteItem, checkResponse };

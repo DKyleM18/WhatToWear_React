@@ -20,9 +20,11 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, weather, imageUrl });
-    setName("");
-    setImageUrl("");
+    onAddItem({ name, weather, imageUrl }).then(
+      () => setName(""),
+      setImageUrl(""),
+      setWeather("")
+    );
   };
 
   return (
@@ -58,7 +60,7 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
           required
         />
       </label>
-      <fieldset className="modal__radio-buttons" onChange={handleWeatherChange}>
+      <fieldset className="modal__radio-buttons">
         <legend className="modal__legend">Select the weather type</legend>
         <label htmlFor="hot" className="modal__label modal__label_type_radio">
           <input
@@ -67,6 +69,8 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
             id="hot"
             value="hot"
             className="modal__radio-input"
+            checked={weather === "hot"}
+            onChange={handleWeatherChange}
             required
           />{" "}
           Hot
@@ -78,6 +82,8 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
             id="warm"
             value="warm"
             className="modal__radio-input"
+            checked={weather === "warm"}
+            onChange={handleWeatherChange}
             required
           />{" "}
           Warm
@@ -89,6 +95,8 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
             id="cold"
             value="cold"
             className="modal__radio-input"
+            checked={weather === "cold"}
+            onChange={handleWeatherChange}
             required
           />{" "}
           Cold
