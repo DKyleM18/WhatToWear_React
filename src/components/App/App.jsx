@@ -10,7 +10,14 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import { coordinates, APIkey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
-import { getItems } from "../../utils/api";
+import {
+  getItems,
+  checkResponse,
+  request,
+  baseUrl,
+  addItem,
+  deleteItem,
+} from "../../utils/api";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -22,7 +29,6 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
-  const baseUrl = "http://localhost:3001";
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -43,43 +49,31 @@ function App() {
   };
 
   const handleAddItemSubmit = (values) => {
-    getItems()
-      .then((data) => {
-        const lastId = Math.max(...data.map((item) => item._id));
-        const newId = lastId + 1;
-        const newItem = { _id: newId, ...values };
-        return fetch(`${baseUrl}/items`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newItem),
-        });
-      })
-      .then((res) => {
-        return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-      })
+    const lastId = Math.max(...clothingItems.map((item) => item._id));
+    const newId = lastId + 1;
+    const newItem = { _id: newId, ...values };
+    return addItem(newItem)
+      .then(checkResponse)
       .then((data) => {
         setClothingItems([...clothingItems, data]);
       })
+      .then(() => {
+        handleModalClose();
+      })
       .catch(console.error);
-    handleModalClose();
   };
 
   const handleDeleteItem = () => {
-    fetch(`${baseUrl}/items/${selectedCard._id}`, {
-      method: "DELETE",
-    })
-      .then((res) => {
-        return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-      })
+    return deleteItem(selectedCard._id)
       .then(() => {
         setClothingItems(
           clothingItems.filter((item) => item._id !== selectedCard._id)
         );
       })
+      .then(() => {
+        handleModalClose();
+      })
       .catch(console.error);
-    handleModalClose();
   };
 
   useEffect(() => {
