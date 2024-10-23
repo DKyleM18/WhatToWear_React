@@ -10,14 +10,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import { coordinates, APIkey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
-import {
-  getItems,
-  checkResponse,
-  request,
-  baseUrl,
-  addItem,
-  deleteItem,
-} from "../../utils/api";
+import { getItems, addItem, deleteItem } from "../../utils/api";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -54,10 +47,7 @@ function App() {
     const newItem = { _id: newId, ...values };
     return addItem(newItem)
       .then((data) => {
-        setClothingItems([...clothingItems, data]);
-      })
-      .then(() => {
-        handleModalClose();
+        setClothingItems([data, ...clothingItems]);
       })
       .catch(console.error);
   };
