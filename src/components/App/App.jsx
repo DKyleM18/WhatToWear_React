@@ -48,6 +48,7 @@ function App() {
     return addItem(newItem)
       .then((data) => {
         setClothingItems([data, ...clothingItems]);
+        handleModalClose();
       })
       .catch(console.error);
   };

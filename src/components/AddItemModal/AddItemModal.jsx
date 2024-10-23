@@ -27,8 +27,6 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddItem({ name, weather, imageUrl });
-    resetInputs();
-    onClose();
   };
 
   useEffect(() => {
