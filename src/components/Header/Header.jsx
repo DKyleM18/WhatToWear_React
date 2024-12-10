@@ -4,7 +4,13 @@ import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-export default function Header({ handleAddClick, weatherData }) {
+export default function Header({
+  handleAddClick,
+  weatherData,
+  isLoggedIn,
+  handleLoginClick,
+  handleRegisterClick,
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -21,19 +27,40 @@ export default function Header({ handleAddClick, weatherData }) {
       </div>
       <div className="header__wrapper">
         <ToggleSwitch />
-        <button
-          onClick={handleAddClick}
-          className="header__button"
-          type="button"
-        >
-          + Add Clothes
-        </button>
-        <Link to="/profile" className="header__link">
-          <div className="header__profile">
-            <p className="header__user">Terrence Tegegne</p>
-            <img src={avatar} alt="" className="header__avatar" />
+        {isLoggedIn ? (
+          <>
+            <button
+              onClick={handleAddClick}
+              className="header__button"
+              type="button"
+            >
+              + Add Clothes
+            </button>
+            <Link to="/profile" className="header__link">
+              <div className="header__profile">
+                <p className="header__user">Terrence Tegegne</p>
+                <img src={avatar} alt="" className="header__avatar" />
+              </div>
+            </Link>
+          </>
+        ) : (
+          <div className="header__buttons">
+            <button
+              onClick={handleRegisterClick}
+              className="header__button"
+              type="button"
+            >
+              Sign Up
+            </button>
+            <button
+              onClick={handleLoginClick}
+              className="header__button"
+              type="button"
+            >
+              Log In
+            </button>
           </div>
-        </Link>
+        )}
       </div>
     </header>
   );

@@ -8,6 +8,7 @@ export default function ModalWithForm({
   onClose,
   isOpen,
   onSubmit,
+  register,
 }) {
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
@@ -16,9 +17,18 @@ export default function ModalWithForm({
         <button onClick={onClose} type="button" className="modal__close" />
         <form action="" onSubmit={onSubmit} className="modal__form">
           {children}
-          <button type="submit" className="modal__submit">
-            {buttonText}
-          </button>
+          <div className="modal__buttons">
+            <button type="submit" className="modal__submit">
+              {buttonText}
+            </button>
+            <button
+              type="button"
+              className="modal__register-button"
+              onClick={register}
+            >
+              or Register
+            </button>
+          </div>
         </form>
       </div>
     </div>
