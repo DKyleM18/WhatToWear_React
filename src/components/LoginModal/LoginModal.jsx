@@ -2,7 +2,7 @@ import "./LoginModal.css";
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-export default function LoginModal({ onClose, onLogin, activeModal }) {
+export default function LoginModal({ onClose, handleLogin, activeModal }) {
   const [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -20,7 +20,7 @@ export default function LoginModal({ onClose, onLogin, activeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin({ email, password });
+    handleLogin({ email, password });
   };
 
   useEffect(() => {

@@ -2,7 +2,11 @@ import "./RegisterModal.css";
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-export default function RegisterModal({ onClose, onRegister, activeModal }) {
+export default function RegisterModal({
+  onClose,
+  handleRegitration,
+  activeModal,
+}) {
   const [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -32,7 +36,7 @@ export default function RegisterModal({ onClose, onRegister, activeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister({ email, password, name, avatarUrl });
+    handleRegitration({ email, password, name, avatarUrl });
   };
 
   useEffect(() => {

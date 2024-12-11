@@ -10,6 +10,7 @@ export default function Header({
   isLoggedIn,
   handleLoginClick,
   handleRegisterClick,
+  currentUser,
 }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -38,8 +39,18 @@ export default function Header({
             </button>
             <Link to="/profile" className="header__link">
               <div className="header__profile">
-                <p className="header__user">Terrence Tegegne</p>
-                <img src={avatar} alt="" className="header__avatar" />
+                <p className="header__user">{currentUser?.name}</p>
+                {currentUser?.avatar ? (
+                  <img
+                    src={currentUser?.avatar}
+                    alt=""
+                    className="header__avatar"
+                  />
+                ) : (
+                  <p className="header__default-avatar">
+                    {currentUser?.name.charAt(0).toUpperCase() || ""}
+                  </p>
+                )}
               </div>
             </Link>
           </>

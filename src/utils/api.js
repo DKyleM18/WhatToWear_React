@@ -18,6 +18,7 @@ function addItem(item) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(item),
   });
@@ -26,6 +27,10 @@ function addItem(item) {
 function deleteItem(itemId) {
   return request(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
 }
 
