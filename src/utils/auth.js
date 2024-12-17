@@ -1,7 +1,7 @@
 import { checkResponse, baseUrl } from "./api";
 
 function signup({ name, avatar, email, password }) {
-  return fetch(`${baseUrl}/users`, {
+  return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,7 +16,7 @@ function signup({ name, avatar, email, password }) {
 }
 
 function signin({ email, password }) {
-  return fetch(`${baseUrl}/users/signin`, {
+  return fetch(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

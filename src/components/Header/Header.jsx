@@ -1,7 +1,8 @@
+import React from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 export default function Header({
@@ -10,8 +11,8 @@ export default function Header({
   isLoggedIn,
   handleLoginClick,
   handleRegisterClick,
-  currentUser,
 }) {
+  const currentUser = React.useContext(CurrentUserContext);
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -39,7 +40,9 @@ export default function Header({
             </button>
             <Link to="/profile" className="header__link">
               <div className="header__profile">
-                <p className="header__user">{currentUser?.name}</p>
+                <p className="header__user">
+                  {currentUser?.name || "Terrence Tegegne"}
+                </p>
                 {currentUser?.avatar ? (
                   <img
                     src={currentUser?.avatar}
@@ -48,7 +51,7 @@ export default function Header({
                   />
                 ) : (
                   <p className="header__default-avatar">
-                    {currentUser?.name.charAt(0).toUpperCase() || ""}
+                    {currentUser?.name[0].toUpperCase() || "T"}
                   </p>
                 )}
               </div>

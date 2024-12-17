@@ -1,10 +1,10 @@
-import "./RegisterModal.css";
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./RegisterModal.css";
 
 export default function RegisterModal({
   onClose,
-  handleRegitration,
+  handleRegistration,
   activeModal,
 }) {
   const [email, setEmail] = useState("");
@@ -22,21 +22,21 @@ export default function RegisterModal({
     setName(e.target.value);
   };
 
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const [avatar, setAvatar] = useState("");
   const handleAvatarUrlChange = (e) => {
-    setAvatarUrl(e.target.value);
+    setAvatar(e.target.value);
   };
 
   const resetInputs = () => {
     setEmail("");
     setPassword("");
     setName("");
-    setAvatarUrl("");
+    setAvatar("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegitration({ email, password, name, avatarUrl });
+    handleRegistration({ email, password, name, avatar });
   };
 
   useEffect(() => {
@@ -90,15 +90,15 @@ export default function RegisterModal({
           required
         />
       </label>
-      <label htmlFor="avatarUrl" className="modal__label">
+      <label htmlFor="avatar" className="modal__label">
         Avatar URL{" "}
         <input
-          id="avatarUrl"
+          id="avatar"
           type="url"
           className="modal__input"
           placeholder="Avatar URL"
           onChange={handleAvatarUrlChange}
-          value={avatarUrl}
+          value={avatar}
         />
       </label>
     </ModalWithForm>

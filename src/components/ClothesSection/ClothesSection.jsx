@@ -1,11 +1,15 @@
-import "./ClothesSection.css";
+import React from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ItemCard from "../ItemCard/ItemCard";
+import "./ClothesSection.css";
 
 export default function ClothesSection({
   onCardClick,
   clothingItems,
   handleAddClick,
 }) {
+  const currentUser = React.useContext(CurrentUserContext);
+
   return (
     <div className="clothes-section">
       <div className="clothes-section__header">
@@ -19,16 +23,18 @@ export default function ClothesSection({
         </button>
       </div>
       <ul className="clothes-section__list">
-        {clothingItems.map((item) => {
-          return (
-            <ItemCard
-              key={item._id}
-              item={item}
-              // TODO: Pass props
-              onCardClick={onCardClick}
-            />
-          );
-        })}
+        {clothingItems
+          .filter((item) => item.owner === currentUser?._id)
+          .map((item) => {
+            return (
+              <ItemCard
+                key={item._id}
+                item={item}
+                // TODO: Pass props
+                onCardClick={onCardClick}
+              />
+            );
+          })}
       </ul>
     </div>
   );

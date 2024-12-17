@@ -9,13 +9,14 @@ import ItemModal from "../ItemModal/ItemModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { coordinates, APIkey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { getItems, addItem, deleteItem } from "../../utils/api";
-import { signin, signup } from "../../utils/auth";
+import { getItems, addItem, deleteItem, editUser } from "../../utils/api";
+import { signin, signup, checkToken } from "../../utils/auth";
 import { setToken, getToken } from "../../utils/token";
 
 function App() {
@@ -28,11 +29,9 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [currentUser, setCurrentUser] = useState({
-    name: "",
-    avatar: "",
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const [userToken, setUserToken] = useState("");
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -51,6 +50,10 @@ function App() {
     setActiveModal("register");
   };
 
+  const handleEditClick = () => {
+    setActiveModal("edit-profile");
+  };
+
   const handleModalClose = () => {
     setActiveModal("");
   };
@@ -64,7 +67,7 @@ function App() {
     const lastId = Math.max(...clothingItems.map((item) => item._id));
     const newId = lastId + 1;
     const newItem = { _id: newId, ...values };
-    return addItem(newItem)
+    return addItem(newItem, userToken)
       .then((data) => {
         setClothingItems([data, ...clothingItems]);
         handleModalClose();
@@ -74,24 +77,36 @@ function App() {
 
   const handleLogin = ({ email, password }) => {
     signin({ email, password })
-      .then(() => {
+      .then((res) => {
+        setToken(res.token);
+        setUserToken(res.token);
+      })
+      .then((user) => {
+        setCurrentUser(user?.data);
         setIsLoggedIn(true);
       })
       .catch(console.error);
     handleModalClose();
   };
 
-  const handleRegistration = ({ email, password, name, avatar }) => {
-    signup({ email, password, name, avatar })
+  const handleRegistration = ({ name, avatar, email, password }) => {
+    signup({ name, avatar, email, password })
       .then(() => {
-        signin({ email, password })
-          .then(() => {
-            setIsLoggedIn(true);
-          })
-          .catch(console.error);
+        handleLogin({ email, password }).catch(console.error);
       })
       .catch(console.error);
     handleModalClose();
+  };
+
+  const handleUpdateUser = ({ name, avatar }) => {
+    return editUser({ name, avatar }, userToken)
+      .then((user) => {
+        setCurrentUser(user.data);
+      })
+      .then(() => {
+        handleModalClose();
+      })
+      .catch(console.error);
   };
 
   const handleDeleteItem = () => {
@@ -146,10 +161,15 @@ function App() {
   }, [activeModal]);
 
   useEffect(() => {
-    const jwt = getToken();
-    if (!jwt) return;
-
-    setIsLoggedIn(true);
+    const token = getToken();
+    if (token) {
+      checkToken(token)
+        .then((res) => {
+          setCurrentUser(res.data);
+          setIsLoggedIn(true);
+        })
+        .catch(console.error);
+    }
   }, []);
 
   return (
@@ -165,7 +185,6 @@ function App() {
               handleLoginClick={handleLoginClick}
               handleRegisterClick={handleRegisterClick}
               isLoggedIn={isLoggedIn}
-              currentUser={currentUser}
             />
             <Routes>
               <Route
@@ -186,6 +205,7 @@ function App() {
                       onCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
+                      handleEditClick={handleEditClick}
                     />
                   </ProtectedRoute>
                 }
@@ -213,6 +233,11 @@ function App() {
           <RegisterModal
             onClose={handleModalClose}
             handleRegistration={handleRegistration}
+            activeModal={activeModal}
+          />
+          <EditProfileModal
+            onClose={handleModalClose}
+            handleUpdateUser={handleUpdateUser}
             activeModal={activeModal}
           />
         </CurrentTemperatureUnitContext.Provider>
