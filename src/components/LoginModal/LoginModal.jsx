@@ -38,10 +38,10 @@ export default function LoginModal({ onClose, handleLogin, activeModal }) {
       isOpen={activeModal === "login"}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="loginEmail" className="modal__label">
         Email{" "}
         <input
-          id="email"
+          id="loginEmail"
           type="email"
           className="modal__input"
           placeholder="Email"
@@ -50,10 +50,10 @@ export default function LoginModal({ onClose, handleLogin, activeModal }) {
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="loginPassword" className="modal__label">
         Password{" "}
         <input
-          id="password"
+          id="loginPassword"
           type="password"
           className="modal__input"
           placeholder="Password"

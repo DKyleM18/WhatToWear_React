@@ -1,4 +1,5 @@
 import React from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./EditProfileModal.css";
 
@@ -7,6 +8,8 @@ export default function EditProfileModal({
   handleUpdateUser,
   activeModal,
 }) {
+  const currentUser = React.useContext(CurrentUserContext);
+
   const [name, setName] = React.useState("");
   const [avatarUrl, setAvatarUrl] = React.useState("");
 
@@ -38,25 +41,25 @@ export default function EditProfileModal({
       isOpen={activeModal === "edit-profile"}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="editProfileName" className="modal__label">
         Name *
         <input
-          id="name"
+          id="editProfileName"
           type="text"
           className="modal__input"
-          placeholder="Name"
+          placeholder={currentUser.name}
           onChange={handleNameChange}
           value={name}
           required
         />
       </label>
-      <label htmlFor="avatarUrl" className="modal__label">
+      <label htmlFor="editProfileAvatar" className="modal__label">
         Avatar *
         <input
-          id="avatarUrl"
+          id="editProfileAvatar"
           type="url"
           className="modal__input"
-          placeholder="Avatar URL"
+          placeholder={currentUser.avatar}
           onChange={handleAvatarUrlChange}
           value={avatarUrl}
         />

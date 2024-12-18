@@ -13,18 +13,18 @@ function request(url, options) {
   return fetch(url, options).then(checkResponse);
 }
 
-function addItem({ item }, token) {
+function addItem({ _id, name, weather, imageUrl }, token) {
   return request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(item),
+    body: JSON.stringify({ _id, name, weather, imageUrl }),
   });
 }
 
-function deleteItem({ itemId }, token) {
+function deleteItem(itemId, token) {
   return request(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
     headers: {

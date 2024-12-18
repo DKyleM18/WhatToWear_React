@@ -7,6 +7,11 @@
   justify-content: center;
 }
 
+.card__heading {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+}
 .card__title {
   margin: 0;
   padding: 2px 12px;
@@ -26,4 +31,21 @@
   width: 100%;
   border-radius: 12px;
   border: rgba(0, 0, 0, 0.3) 1px solid;
+}
+
+.card__like-button {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  height: 20px;
+  width: 20px;
+  border: none;
+  background-image: url(../../assets/card_like_button_default.svg);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.card__like-button_active {
+  background-image: url(../../assets/card_like_button_liked.svg);
 }

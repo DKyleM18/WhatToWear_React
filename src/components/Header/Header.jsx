@@ -51,7 +51,7 @@ export default function Header({
                   />
                 ) : (
                   <p className="header__default-avatar">
-                    {currentUser?.name[0].toUpperCase() || "T"}
+                    {currentUser?.name.charAt(0).toUpperCase() || "T"}
                   </p>
                 )}
               </div>

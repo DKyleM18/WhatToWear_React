@@ -7,11 +7,15 @@ export default function Profile({
   clothingItems,
   handleAddClick,
   handleEditClick,
+  handleLogoutClick,
 }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar handleEditClick={handleEditClick} />
+        <SideBar
+          handleEditClick={handleEditClick}
+          handleLogoutClick={handleLogoutClick}
+        />
       </section>
       <section className="profile__clothes-section">
         <ClothesSection

@@ -54,10 +54,10 @@ export default function RegisterModal({
       isOpen={activeModal === "register"}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="registerEmail" className="modal__label">
         Email{" "}
         <input
-          id="email"
+          id="registerEmail"
           type="email"
           className="modal__input"
           placeholder="Email"
@@ -66,10 +66,10 @@ export default function RegisterModal({
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="registerPassword" className="modal__label">
         Password{" "}
         <input
-          id="password"
+          id="registerPassword"
           type="password"
           className="modal__input"
           placeholder="Password"
@@ -78,10 +78,10 @@ export default function RegisterModal({
           required
         />
       </label>
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="registerName" className="modal__label">
         Name{" "}
         <input
-          id="name"
+          id="registerName"
           type="text"
           className="modal__input"
           placeholder="Name"
@@ -90,10 +90,10 @@ export default function RegisterModal({
           required
         />
       </label>
-      <label htmlFor="avatar" className="modal__label">
+      <label htmlFor="registerAvatar" className="modal__label">
         Avatar URL{" "}
         <input
-          id="avatar"
+          id="registerAvatar"
           type="url"
           className="modal__input"
           placeholder="Avatar URL"

@@ -44,10 +44,10 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
       isOpen={activeModal === "add-garment"}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="addItemName" className="modal__label">
         Name{" "}
         <input
-          id="name"
+          id="addItemName"
           type="text"
           className="modal__input"
           placeholder="Name"

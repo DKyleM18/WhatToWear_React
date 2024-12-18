@@ -15,9 +15,16 @@ import { coordinates, APIkey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { getItems, addItem, deleteItem, editUser } from "../../utils/api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  editUser,
+  addCardLike,
+  removeCardLike,
+} from "../../utils/api";
 import { signin, signup, checkToken } from "../../utils/auth";
-import { setToken, getToken } from "../../utils/token";
+import { setToken, getToken, removeToken } from "../../utils/token";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -66,7 +73,7 @@ function App() {
   const handleAddItemSubmit = (values) => {
     const lastId = Math.max(...clothingItems.map((item) => item._id));
     const newId = lastId + 1;
-    const newItem = { _id: newId, ...values };
+    const newItem = { owner: currentUser._id, _id: newId, ...values };
     return addItem(newItem, userToken)
       .then((data) => {
         setClothingItems([data, ...clothingItems]);
@@ -78,11 +85,15 @@ function App() {
   const handleLogin = ({ email, password }) => {
     signin({ email, password })
       .then((res) => {
-        setToken(res.token);
+        setToken(res);
         setUserToken(res.token);
+        return res.token;
+      })
+      .then((token) => {
+        return checkToken(token);
       })
       .then((user) => {
-        setCurrentUser(user?.data);
+        setCurrentUser(user);
         setIsLoggedIn(true);
       })
       .catch(console.error);
@@ -101,7 +112,7 @@ function App() {
   const handleUpdateUser = ({ name, avatar }) => {
     return editUser({ name, avatar }, userToken)
       .then((user) => {
-        setCurrentUser(user.data);
+        setCurrentUser(user);
       })
       .then(() => {
         handleModalClose();
@@ -109,8 +120,13 @@ function App() {
       .catch(console.error);
   };
 
+  const handleLogoutClick = () => {
+    removeToken();
+    setIsLoggedIn(false);
+  };
+
   const handleDeleteItem = () => {
-    return deleteItem(selectedCard._id)
+    return deleteItem(selectedCard._id, userToken)
       .then(() => {
         setClothingItems(
           clothingItems.filter((item) => item._id !== selectedCard._id)
@@ -120,6 +136,27 @@ function App() {
         handleModalClose();
       })
       .catch(console.error);
+  };
+
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = getToken();
+    // const isLiked = item.likes.some((id) => id === CurrentUser._id);
+
+    !isLiked
+      ? addCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.error(err))
+      : removeCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.error(err));
   };
 
   useEffect(() => {
@@ -165,7 +202,8 @@ function App() {
     if (token) {
       checkToken(token)
         .then((res) => {
-          setCurrentUser(res.data);
+          setCurrentUser(res);
+          setUserToken(token);
           setIsLoggedIn(true);
         })
         .catch(console.error);
@@ -194,6 +232,8 @@ function App() {
                     weatherData={weatherData}
                     onCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />
@@ -206,6 +246,7 @@ function App() {
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
                       handleEditClick={handleEditClick}
+                      handleLogoutClick={handleLogoutClick}
                     />
                   </ProtectedRoute>
                 }

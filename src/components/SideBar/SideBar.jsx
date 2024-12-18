@@ -3,13 +3,8 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { removeToken } from "../../utils/token";
 import "./SideBar.css";
 
-export default function SideBar({ handleEditClick, setIsLoggedIn }) {
+export default function SideBar({ handleEditClick, handleLogoutClick }) {
   const currentUser = React.useContext(CurrentUserContext);
-
-  const handleLogout = () => {
-    removeToken();
-    setIsLoggedIn(false);
-  };
 
   return (
     <div className="sidebar">
@@ -36,7 +31,7 @@ export default function SideBar({ handleEditClick, setIsLoggedIn }) {
         <button
           type="button"
           className="sidebar__button"
-          onClick={handleLogout}
+          onClick={handleLogoutClick}
         >
           Log out
         </button>
