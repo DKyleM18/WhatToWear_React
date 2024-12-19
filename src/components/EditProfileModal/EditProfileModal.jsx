@@ -7,6 +7,7 @@ export default function EditProfileModal({
   onClose,
   handleUpdateUser,
   activeModal,
+  isLoading,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
