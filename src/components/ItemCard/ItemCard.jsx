@@ -8,7 +8,7 @@ export default function ItemCard({
   onCardLike,
   isLoggedIn,
 }) {
-  const CurrentUser = React.useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext);
 
   const handleCardClick = () => {
     onCardClick(item);
@@ -18,7 +18,7 @@ export default function ItemCard({
     onCardLike({ id: item._id, isLiked: isLiked });
   };
 
-  const isLiked = item.likes?.some((id) => id === CurrentUser._id);
+  const isLiked = item.likes?.some((id) => id === currentUser._id);
 
   const itemLikeButtonClassName = `card__like-button ${
     isLiked ? "card__like-button_active" : ""

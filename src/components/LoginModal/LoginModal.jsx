@@ -2,7 +2,12 @@ import "./LoginModal.css";
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-export default function LoginModal({ onClose, handleLogin, activeModal }) {
+export default function LoginModal({
+  onClose,
+  handleLogin,
+  activeModal,
+  setActiveModal,
+}) {
   const [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -23,6 +28,10 @@ export default function LoginModal({ onClose, handleLogin, activeModal }) {
     handleLogin({ email, password });
   };
 
+  const handleRegisterClick = () => {
+    setActiveModal("register");
+  };
+
   useEffect(() => {
     if (activeModal) {
       resetInputs();
@@ -32,11 +41,13 @@ export default function LoginModal({ onClose, handleLogin, activeModal }) {
   return (
     <ModalWithForm
       activeModal={activeModal}
-      buttonText="Log in"
+      buttonText={isLoading ? "Logging In..." : "Log In"}
       title="Log in"
       onClose={onClose}
       isOpen={activeModal === "login"}
       onSubmit={handleSubmit}
+      altButtonClick={handleRegisterClick}
+      altButtonText="Or Sign Up"
     >
       <label htmlFor="loginEmail" className="modal__label">
         Email{" "}

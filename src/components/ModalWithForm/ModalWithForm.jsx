@@ -8,7 +8,8 @@ export default function ModalWithForm({
   onClose,
   isOpen,
   onSubmit,
-  register,
+  altButtonClick,
+  altButtonText,
 }) {
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
@@ -23,10 +24,10 @@ export default function ModalWithForm({
             </button>
             <button
               type="button"
-              className="modal__register-button"
-              onClick={register}
+              className="modal__alt-button"
+              onClick={altButtonClick}
             >
-              or Register
+              {altButtonText}
             </button>
           </div>
         </form>

@@ -2,7 +2,12 @@ import "./AddItemModal.css";
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-export default function AddItemModal({ onClose, onAddItem, activeModal }) {
+export default function AddItemModal({
+  onClose,
+  onAddItem,
+  activeModal,
+  isLoading,
+}) {
   const [name, setName] = useState("");
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -38,7 +43,7 @@ export default function AddItemModal({ onClose, onAddItem, activeModal }) {
   return (
     <ModalWithForm
       activeModal={activeModal}
-      buttonText="Add garment"
+      buttonText={isLoading ? "Saving..." : "Add garment"}
       title="New garment"
       onClose={onClose}
       isOpen={activeModal === "add-garment"}

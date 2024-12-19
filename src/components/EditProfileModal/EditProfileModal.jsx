@@ -16,9 +16,9 @@ export default function EditProfileModal({
   const handleNameChange = (e) => setName(e.target.value);
   const handleAvatarUrlChange = (e) => setAvatarUrl(e.target.value);
 
-  const resetInputs = () => {
-    setName("");
-    setAvatarUrl("");
+  const fillInputs = () => {
+    setName(currentUser.name);
+    setAvatarUrl(currentUser.avatar);
   };
 
   const handleSubmit = (e) => {
@@ -28,14 +28,14 @@ export default function EditProfileModal({
 
   React.useEffect(() => {
     if (activeModal) {
-      resetInputs();
+      fillInputs();
     }
   }, [activeModal]);
 
   return (
     <ModalWithForm
       activeModal={activeModal}
-      buttonText={"Save changes"}
+      buttonText={isLoading ? "Saving..." : "Save changes"}
       title={"Change profile data"}
       onClose={onClose}
       isOpen={activeModal === "edit-profile"}
@@ -47,7 +47,6 @@ export default function EditProfileModal({
           id="editProfileName"
           type="text"
           className="modal__input"
-          placeholder={currentUser.name}
           onChange={handleNameChange}
           value={name}
           required
@@ -59,7 +58,6 @@ export default function EditProfileModal({
           id="editProfileAvatar"
           type="url"
           className="modal__input"
-          placeholder={currentUser.avatar}
           onChange={handleAvatarUrlChange}
           value={avatarUrl}
         />

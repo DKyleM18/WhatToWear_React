@@ -39,6 +39,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [userToken, setUserToken] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -65,6 +66,14 @@ function App() {
     setActiveModal("");
   };
 
+  function handleSubmit(request) {
+    setIsLoading(true);
+    request()
+      .then(handleModalClose)
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
+  }
+
   const handleToggleSwitchChange = () => {
     if (currentTemperatureUnit === "C") setCurrentTemperatureUnit("F");
     if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
@@ -74,50 +83,49 @@ function App() {
     const lastId = Math.max(...clothingItems.map((item) => item._id));
     const newId = lastId + 1;
     const newItem = { owner: currentUser._id, _id: newId, ...values };
-    return addItem(newItem, userToken)
-      .then((data) => {
+    const makeRequest = () => {
+      return addItem(newItem, userToken).then((data) => {
         setClothingItems([data, ...clothingItems]);
-        handleModalClose();
-      })
-      .catch(console.error);
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleLogin = ({ email, password }) => {
-    signin({ email, password })
-      .then((res) => {
-        setToken(res);
-        setUserToken(res.token);
-        return res.token;
-      })
-      .then((token) => {
-        return checkToken(token);
-      })
-      .then((user) => {
-        setCurrentUser(user);
-        setIsLoggedIn(true);
-      })
-      .catch(console.error);
-    handleModalClose();
+    const makeRequest = () => {
+      return signin({ email, password })
+        .then((res) => {
+          setToken(res);
+          setUserToken(res.token);
+          return res.token;
+        })
+        .then((token) => {
+          return checkToken(token);
+        })
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+        });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleRegistration = ({ name, avatar, email, password }) => {
-    signup({ name, avatar, email, password })
-      .then(() => {
-        handleLogin({ email, password }).catch(console.error);
-      })
-      .catch(console.error);
-    handleModalClose();
+    const makeRequest = () => {
+      return signup({ name, avatar, email, password }).then(() =>
+        handleLogin({ email, password })
+      );
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleUpdateUser = ({ name, avatar }) => {
-    return editUser({ name, avatar }, userToken)
-      .then((user) => {
+    const makeRequest = () => {
+      return editUser({ name, avatar }, userToken).then((user) => {
         setCurrentUser(user);
-      })
-      .then(() => {
-        handleModalClose();
-      })
-      .catch(console.error);
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleLogoutClick = () => {
@@ -126,37 +134,36 @@ function App() {
   };
 
   const handleDeleteItem = () => {
-    return deleteItem(selectedCard._id, userToken)
-      .then(() => {
+    const makeRequest = () => {
+      return deleteItem(selectedCard._id, userToken).then(() => {
         setClothingItems(
           clothingItems.filter((item) => item._id !== selectedCard._id)
         );
-      })
-      .then(() => {
-        handleModalClose();
-      })
-      .catch(console.error);
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleCardLike = ({ id, isLiked }) => {
     const token = getToken();
-    // const isLiked = item.likes.some((id) => id === CurrentUser._id);
 
-    !isLiked
-      ? addCardLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
-          })
-          .catch((err) => console.error(err))
-      : removeCardLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
-          })
-          .catch((err) => console.error(err));
+    const makeLikeRequest = () => {
+      return addCardLike(id, token).then((updatedCard) => {
+        setClothingItems((cards) =>
+          cards.map((item) => (item._id === id ? updatedCard : item))
+        );
+      });
+    };
+
+    const makeDislikeRequest = () => {
+      return removeCardLike(id, token).then((updatedCard) => {
+        setClothingItems((cards) =>
+          cards.map((item) => (item._id === id ? updatedCard : item))
+        );
+      });
+    };
+
+    !isLiked ? handleSubmit(makeLikeRequest) : handleSubmit(makeDislikeRequest);
   };
 
   useEffect(() => {
@@ -247,6 +254,8 @@ function App() {
                       handleAddClick={handleAddClick}
                       handleEditClick={handleEditClick}
                       handleLogoutClick={handleLogoutClick}
+                      isLoggedIn={isLoggedIn}
+                      onCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }
@@ -259,6 +268,7 @@ function App() {
             onClose={handleModalClose}
             onAddItem={handleAddItemSubmit}
             activeModal={activeModal}
+            isLoading={isLoading}
           />
           <ItemModal
             card={selectedCard}
@@ -270,16 +280,21 @@ function App() {
             onClose={handleModalClose}
             handleLogin={handleLogin}
             activeModal={activeModal}
+            setActiveModal={setActiveModal}
+            isLoading={isLoading}
           />
           <RegisterModal
             onClose={handleModalClose}
             handleRegistration={handleRegistration}
             activeModal={activeModal}
+            setActiveModal={setActiveModal}
+            isLoading={isLoading}
           />
           <EditProfileModal
             onClose={handleModalClose}
             handleUpdateUser={handleUpdateUser}
             activeModal={activeModal}
+            isLoading={isLoading}
           />
         </CurrentTemperatureUnitContext.Provider>
       </div>

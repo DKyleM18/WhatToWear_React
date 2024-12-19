@@ -6,6 +6,7 @@ export default function RegisterModal({
   onClose,
   handleRegistration,
   activeModal,
+  setActiveModal,
 }) {
   const [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
@@ -39,6 +40,10 @@ export default function RegisterModal({
     handleRegistration({ email, password, name, avatar });
   };
 
+  const handleLoginClick = () => {
+    setActiveModal("login");
+  };
+
   useEffect(() => {
     if (activeModal) {
       resetInputs();
@@ -48,11 +53,13 @@ export default function RegisterModal({
   return (
     <ModalWithForm
       activeModal={activeModal}
-      buttonText="Next"
+      buttonText={isLoading ? "Signing up..." : "Next"}
       title="Sign Up"
+      altButtonText="or Log In"
       onClose={onClose}
       isOpen={activeModal === "register"}
       onSubmit={handleSubmit}
+      altButtonClick={handleLoginClick}
     >
       <label htmlFor="registerEmail" className="modal__label">
         Email{" "}
