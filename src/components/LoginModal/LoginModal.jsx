@@ -7,6 +7,7 @@ export default function LoginModal({
   handleLogin,
   activeModal,
   setActiveModal,
+  isLoading,
 }) {
   const [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
