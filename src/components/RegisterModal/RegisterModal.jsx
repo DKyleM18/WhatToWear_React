@@ -70,7 +70,7 @@ export default function RegisterModal({
           className="modal__input"
           placeholder="Email"
           onChange={handleEmailChange}
-          value={email}
+          value={email || ""}
           required
         />
       </label>
@@ -82,7 +82,7 @@ export default function RegisterModal({
           className="modal__input"
           placeholder="Password"
           onChange={handlePasswordChange}
-          value={password}
+          value={password || ""}
           required
         />
       </label>
@@ -94,7 +94,7 @@ export default function RegisterModal({
           className="modal__input"
           placeholder="Name"
           onChange={handleNameChange}
-          value={name}
+          value={name || ""}
           required
         />
       </label>
@@ -106,7 +106,7 @@ export default function RegisterModal({
           className="modal__input"
           placeholder="Avatar URL"
           onChange={handleAvatarUrlChange}
-          value={avatar}
+          value={avatar || ""}
         />
       </label>
     </ModalWithForm>

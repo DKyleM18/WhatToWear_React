@@ -24,7 +24,7 @@ export default function EditProfileModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleUpdateUser({ name, avatarUrl });
+    handleUpdateUser({ name, avatar: avatarUrl });
   };
 
   React.useEffect(() => {
@@ -49,7 +49,7 @@ export default function EditProfileModal({
           type="text"
           className="modal__input"
           onChange={handleNameChange}
-          value={name}
+          value={name || ""}
           required
         />
       </label>
@@ -60,7 +60,7 @@ export default function EditProfileModal({
           type="url"
           className="modal__input"
           onChange={handleAvatarUrlChange}
-          value={avatarUrl}
+          value={avatarUrl || ""}
         />
       </label>
     </ModalWithForm>
