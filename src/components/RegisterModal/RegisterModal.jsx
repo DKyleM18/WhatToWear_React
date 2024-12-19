@@ -7,6 +7,7 @@ export default function RegisterModal({
   handleRegistration,
   activeModal,
   setActiveModal,
+  isLoading,
 }) {
   const [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
