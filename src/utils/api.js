@@ -1,6 +1,9 @@
 //  json-server --watch db.json --id _id --port 3001
 
-const baseUrl = "http://localhost:3001";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.d.kyle.blinklab.com"
+    : "http://localhost:3001";
 
 function checkResponse(res) {
   if (res.ok) {
