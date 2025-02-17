@@ -40,7 +40,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [userToken, setUserToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [coordinates, setCoordinates] = useState({ lat: 0, lon: 0 });
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -171,7 +170,6 @@ function App() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        setCoordinates({ lat: latitude, lon: longitude });
         getWeather({ latitude, longitude }, APIkey)
           .then((data) => {
             const filteredData = filterWeatherData(data);
