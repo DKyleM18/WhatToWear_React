@@ -48,7 +48,7 @@ export default function LoginModal({
       isOpen={activeModal === "login"}
       onSubmit={handleSubmit}
       altButtonClick={handleRegisterClick}
-      altButtonText="Or Sign Up"
+      altButtonText="Sign Up"
     >
       <label htmlFor="loginEmail" className="modal__label">
         Email{" "}

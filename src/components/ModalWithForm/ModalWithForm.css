@@ -108,10 +108,14 @@
   border: none;
 }
 
+.modal__alt-button-text {
+  color: rgba(0, 0, 0, 1);
+}
+
 .modal__alt-button {
   margin-left: 12px;
   padding: 0;
   background-color: transparent;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(47, 113, 229, 1);
   border: none;
 }

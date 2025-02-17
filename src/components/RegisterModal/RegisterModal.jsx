@@ -56,7 +56,7 @@ export default function RegisterModal({
       activeModal={activeModal}
       buttonText={isLoading ? "Signing up..." : "Next"}
       title="Sign Up"
-      altButtonText="or Log In"
+      altButtonText="Log In"
       onClose={onClose}
       isOpen={activeModal === "register"}
       onSubmit={handleSubmit}
