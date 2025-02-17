@@ -11,7 +11,7 @@ import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import { coordinates, APIkey } from "../../utils/constants";
+import { APIkey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherAPI";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -40,6 +40,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [userToken, setUserToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [coordinates, setCoordinates] = useState({ lat: 0, lon: 0 });
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -167,12 +168,19 @@ function App() {
   };
 
   useEffect(() => {
-    getWeather(coordinates, APIkey)
-      .then((data) => {
-        const filteredData = filterWeatherData(data);
-        setWeatherData(filteredData);
-      })
-      .catch(console.error);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCoordinates({ lat: latitude, lon: longitude });
+        getWeather({ latitude, longitude }, APIkey)
+          .then((data) => {
+            const filteredData = filterWeatherData(data);
+            setWeatherData(filteredData);
+          })
+          .catch(console.error);
+      },
+      (error) => console.error(error)
+    );
   }, []);
 
   useEffect(() => {
