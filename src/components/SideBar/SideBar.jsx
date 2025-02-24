@@ -1,6 +1,5 @@
 import React from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { removeToken } from "../../utils/token";
 import "./SideBar.css";
 
 export default function SideBar({ handleEditClick, handleLogoutClick }) {

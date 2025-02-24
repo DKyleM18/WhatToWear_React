@@ -40,6 +40,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [userToken, setUserToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
 
   const handleAddClick = () => {
     setActiveModal("add-garment");
@@ -219,9 +220,16 @@ function App() {
           setUserToken(token);
           setIsLoggedIn(true);
         })
-        .catch(console.error);
+        .catch(console.error)
+        .finally(() => setIsAuthChecked(true));
+    } else {
+      setIsAuthChecked(true);
     }
   }, []);
+
+  if (!isAuthChecked) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -239,7 +247,7 @@ function App() {
             />
             <Routes>
               <Route
-                path="/"
+                path="/wtwr"
                 element={
                   <Main
                     weatherData={weatherData}
@@ -251,7 +259,7 @@ function App() {
                 }
               />
               <Route
-                path="/profile"
+                path="/wtwr/profile"
                 element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Profile
@@ -266,7 +274,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/wtwr/*" element={<Navigate to="/wtwr" replace />} />
             </Routes>
             <Footer />
           </div>

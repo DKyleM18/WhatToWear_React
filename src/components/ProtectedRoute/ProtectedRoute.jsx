@@ -6,14 +6,14 @@ export default function ProtectedRoute({
   anonymous = false,
 }) {
   const location = useLocation();
-  const from = location.state?.from || "/";
+  const from = location.state?.from || "/wtwr";
 
   if (anonymous && isLoggedIn) {
     return <Navigate to={from} />;
   }
 
   if (!anonymous && !isLoggedIn) {
-    return <Navigate to="/" state={{ from: location }} />;
+    return <Navigate to="/wtwr" state={{ from: location }} />;
   }
 
   return children;

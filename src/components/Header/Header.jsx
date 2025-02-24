@@ -20,7 +20,7 @@ export default function Header({
 
   return (
     <header className="header">
-      <Link to="/" className="header__link">
+      <Link to="/wtwr" className="header__link">
         <img src={logo} alt="logo" className="header__logo" />
       </Link>
       <div className="header__locale">
@@ -38,7 +38,7 @@ export default function Header({
             >
               + Add Clothes
             </button>
-            <Link to="/profile" className="header__link">
+            <Link to="/wtwr/profile" className="header__link">
               <div className="header__profile">
                 <p className="header__user">
                   {currentUser?.name || "Terrence Tegegne"}

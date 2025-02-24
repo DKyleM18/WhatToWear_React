@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./RegisterModal.css";
 
@@ -38,7 +38,10 @@ export default function RegisterModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegistration({ email, password, name, avatar });
+    const avatarUrl =
+      avatar ||
+      "https://gravatar.com/avatar/93b2bb8b18e24d3716a543e37c4dd1c4?s=400&d=mp&r=x";
+    handleRegistration({ email, password, name, avatar: avatarUrl });
   };
 
   const handleLoginClick = () => {

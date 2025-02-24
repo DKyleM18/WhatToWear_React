@@ -2,8 +2,8 @@
 
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.d.kyle.blinklab.com"
-    : "http://localhost:3001";
+    ? "https://api.d.kyle.blinklab.com/wtwr"
+    : "http://localhost:3001/wtwr";
 
 function checkResponse(res) {
   if (res.ok) {

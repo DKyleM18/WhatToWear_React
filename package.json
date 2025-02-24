@@ -9,7 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./dist/* dkylem18@d.kyle.blinklab.com:/home/dkylem18/frontend",
+    "deploy": "npm run build && scp -r ./dist/* dkylem18@d.kyle.blinklab.com:/home/dkylem18/frontend/wtwr",
     "pass": "ssh-add ~/.ssh/id_ed25519"
   },
   "dependencies": {
@@ -29,5 +29,5 @@
     "gh-pages": "^6.1.1",
     "vite": "^5.3.1"
   },
-  "homepage": "https://d.kyle.blinklab.com"
+  "homepage": "https://d.kyle.blinklab.com/wtwr"
 }

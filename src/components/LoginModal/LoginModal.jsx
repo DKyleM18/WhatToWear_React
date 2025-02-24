@@ -1,5 +1,5 @@
 import "./LoginModal.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 export default function LoginModal({

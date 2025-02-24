@@ -27,7 +27,11 @@ export default function ModalWithForm({
               className="modal__alt-button"
               onClick={altButtonClick}
             >
-              <span className="modal__alt-button-text">or </span>
+              {!activeModal ||
+                (activeModal !== "add-garment" &&
+                  activeModal !== "edit-profile" && (
+                    <span className="modal__alt-button-text">or </span>
+                  ))}
               {altButtonText}
             </button>
           </div>

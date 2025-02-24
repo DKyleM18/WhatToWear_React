@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./EditProfileModal.css";
@@ -11,8 +11,8 @@ export default function EditProfileModal({
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const [name, setName] = React.useState("");
-  const [avatarUrl, setAvatarUrl] = React.useState("");
+  const [name, setName] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
 
   const handleNameChange = (e) => setName(e.target.value);
   const handleAvatarUrlChange = (e) => setAvatarUrl(e.target.value);
@@ -27,7 +27,7 @@ export default function EditProfileModal({
     handleUpdateUser({ name, avatar: avatarUrl });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeModal) {
       fillInputs();
     }
