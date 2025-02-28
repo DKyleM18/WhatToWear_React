@@ -8,10 +8,32 @@
   line-height: 20px;
 }
 
-.footer__name {
+.footer__item {
   margin: 0;
 }
 
+.footer__developed-by,
+.footer__name,
 .footer__copyright {
-  margin: 0 2px 0 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 425px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer__item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  .footer__developed-by,
+  .footer__name,
+  .footer__copyright {
+    margin-bottom: 5px;
+  }
 }

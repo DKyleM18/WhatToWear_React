@@ -23,3 +23,9 @@
   flex-wrap: wrap;
   gap: 21px;
 }
+
+@media screen and (max-width: 775px) {
+  .cards__list {
+    justify-content: center;
+  }
+}

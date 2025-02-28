@@ -9,3 +9,9 @@
   padding: 32px 40px 24px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 425px) {
+  .app__content {
+    padding: 32px 20px 24px;
+  }
+}

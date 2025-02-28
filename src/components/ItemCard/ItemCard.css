@@ -1,7 +1,7 @@
 .card {
   margin: 0;
   max-height: 387px;
-  width: 323px;
+  width: 295px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -48,4 +48,10 @@
 
 .card__like-button_active {
   background-image: url(../../assets/card_like_button_liked.svg);
+}
+
+@media screen and (max-width: 775px) {
+  .card {
+    width: 250px;
+  }
 }
