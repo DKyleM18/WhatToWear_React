@@ -1,10 +1,20 @@
 # WTWR Project: Frontend
 
-This is the frontend portion of the TripleTen project "What to Wear" (WTWR)
+This is the frontend portion of the web site "What to Wear" (WTWR). The application helps users decide what to wear based on the current weather conditions. Users can add, view, and manage their clothing items, and the app provides recommendations on what to wear based on the weather.
 
 ## Backend Link
 
-https://github.com/DKyleM18/se_project_express.git
+https://github.com/DKyleM18/Express_Backend.git
+
+## Technologies Used
+
+- React
+- React Router
+- Vite
+- ESLint
+- Prettier
+- Normalize.css
+- OpenWeatherMap API
 
 ## Installation
 
