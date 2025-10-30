@@ -1,4 +1,4 @@
-//  json-server --watch db.json --id _id --port 3001
+//  json-server db.json --port 3001
 
 const baseUrl =
   process.env.NODE_ENV === "production"
